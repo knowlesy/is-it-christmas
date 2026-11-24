@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Is it Christmas?</title>
+  <meta
+    name="description"
+    content="Is it Christmas? A minimalist answer with a daily RSS feed active from 1 December through 25 December."
+  />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Is it Christmas? RSS Feed"
+    href="feed.xml"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="stage" aria-live="polite">
+    <p class="question" id="question">IS IT CHRISTMAS?</p>
+    <h1 class="answer" id="answer">NO</h1>
+    <p class="subtext" id="subtext"></p>
+  </main>
+
+  <footer class="dock" aria-label="RSS feed and Slack integration">
+    <div class="dock-inner">
+      <span class="status-pill" id="feed-status">Checking schedule…</span>
+      <div class="actions">
+        <a class="btn" href="feed.xml" target="_blank" rel="noopener">RSS Feed</a>
+        <button class="btn btn-primary" type="button" id="copy-slack-btn">
+          Copy Slack /feed command
+        </button>
+      </div>
+    </div>
+    <p class="slack-preview">
+      <code id="slack-command">/feed subscribe https://knowlesy.github.io/is-it-christmas/feed.xml</code>
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

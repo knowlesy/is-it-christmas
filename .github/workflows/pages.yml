@@ -1,0 +1,65 @@
+name: Deploy Is It Christmas Page and RSS Feed
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Optional YYYY-MM-DD date override for testing"
+        required: false
+        type: string
+  schedule:
+    # 09:00 UTC = 09:00 Europe/London (GMT) throughout December, Dec 1–25 only
+    - cron: "0 9 1-25 12 *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate RSS feed
+        env:
+          INPUT_DATE: ${{ inputs.date }}
+        run: |
+          mkdir -p _site
+          cp index.html styles.css app.js _site/
+          if [ -n "$INPUT_DATE" ]; then
+            python3 scripts/generate_feed.py \
+              --output _site/feed.xml \
+              --site-url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
+              --timezone "Europe/London" \
+              --date "$INPUT_DATE"
+          else
+            python3 scripts/generate_feed.py \
+              --output _site/feed.xml \
+              --site-url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
+              --timezone "Europe/London"
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,162 @@
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #666666;
+  --border: #e5e5e5;
+  --surface: #f7f7f7;
+  --accent: #111111;
+  --accent-fg: #ffffff;
+  --pill-bg: #f0f0f0;
+  --pill-fg: #444444;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --fg: #f4f4f5;
+    --muted: #9ca3af;
+    --border: #262932;
+    --surface: #171a21;
+    --accent: #f4f4f5;
+    --accent-fg: #0f1115;
+    --pill-bg: #1f2430;
+    --pill-fg: #d1d5db;
+  }
+}
+
+body.is-christmas {
+  --bg: #0e3b25;
+  --fg: #fffaf0;
+  --muted: #cbe4d5;
+  --border: rgba(255, 250, 240, 0.22);
+  --surface: rgba(0, 0, 0, 0.22);
+  --accent: #d93829;
+  --accent-fg: #ffffff;
+  --pill-bg: rgba(217, 56, 41, 0.28);
+  --pill-fg: #fffaf0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.question {
+  margin: 0 0 0.75rem;
+  font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+.answer {
+  margin: 0;
+  font-size: clamp(6rem, 26vw, 16rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.subtext {
+  margin: 1.5rem 0 0;
+  min-height: 1.4em;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.dock {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.9rem 1.25rem;
+}
+
+.dock-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+
+.slack-preview {
+  max-width: 780px;
+  margin: 0.6rem auto 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  overflow-x: auto;
+}
+
+.slack-preview code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
